@@ -20,5 +20,32 @@ const virtualDOM = (
     <input type="text" value="13" />
   </div>
 )
-TinyReact.render(virtualDOM, root)
-console.log(virtualDOM)
+// TinyReact.render(virtualDOM, root)
+
+function Demo(){
+  return <div>Hello</div>
+}
+function Heart(props) {
+  return (
+    <div>
+      {props.title}&hearts;
+      <Demo />
+    </div>
+  );
+}
+// TinyReact.render(<Heart title="Hello React" />, root)
+// console.log(virtualDOM)
+
+class Alert extends TinyReact.Component {
+  constructor (props) {
+    super(props)
+  }
+  render () {
+    return <div> 
+      {this.props.name}
+      {this.props.age}
+    </div>
+  }
+}
+
+TinyReact.render(<Alert name="张三" age={20}/>, root)

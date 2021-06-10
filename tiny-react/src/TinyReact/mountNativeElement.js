@@ -1,4 +1,5 @@
 import mountElement from "./mountElement"
+import updateNodeElement from "./updateNodeElement"
 export default function mountNativeElement (virtualDOM, container)  {
   let newElement = null
   if(virtualDOM.type==="text"){
@@ -6,7 +7,8 @@ export default function mountNativeElement (virtualDOM, container)  {
     newElement = document.createTextNode(virtualDOM.props.textContent);
   } else {
     // 元素节点
-    newElement = document.createElement(virtualDOM.type)
+    newElement = document.createElement(virtualDOM.type);
+    updateNodeElement(newElement, virtualDOM);
   }
 
   // 递归创建子节点
