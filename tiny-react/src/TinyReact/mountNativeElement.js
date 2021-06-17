@@ -1,20 +1,13 @@
-import mountElement from "./mountElement"
-import updateNodeElement from "./updateNodeElement"
-export default function mountNativeElement (virtualDOM, container)  {
-  let newElement = null
-  if(virtualDOM.type==="text"){
-    // 文本节点
-    newElement = document.createTextNode(virtualDOM.props.textContent);
+import createDOMElement from "./createDOMElement";
+
+export default function mountNativeElement(virtualDOM, container, oldDOM) {
+  let newElement = createDOMElement(virtualDOM);
+
+  if(oldDOM) {
+    container.insertBefore(newElement, oldDOM)
   } else {
-    // 元素节点
-    newElement = document.createElement(virtualDOM.type);
-    updateNodeElement(newElement, virtualDOM);
+    container.appendChild(newElement);
   }
 
-  // 递归创建子节点
-  virtualDOM.children.forEach((child) => {
-    mountElement(child, newElement);
-  })
-
-  container.appendChild(newElement);
+  
 }
