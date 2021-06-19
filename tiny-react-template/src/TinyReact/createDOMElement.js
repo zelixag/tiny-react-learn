@@ -8,7 +8,6 @@ export default function createDOMElement(virtualDOM) {
     newElement = document.createTextNode(virtualDOM.props.textContent)
   } else if (typeof virtualDOM.type !== "function") {
     // 元素节点
-    console.log('============', virtualDOM.type);
     newElement = document.createElement(virtualDOM.type);
     updateNodeElement(newElement, virtualDOM);
   }

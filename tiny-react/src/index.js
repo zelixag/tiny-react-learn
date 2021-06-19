@@ -123,6 +123,9 @@ class DemoRef extends TinyReact.Component {
   componentDidMount() {
     console.log('componentDidMount')
   }
+  componentWillUnmount() {
+    console.log('componentDidMount')
+  }
   render() {
     return (
       <div>
@@ -160,11 +163,10 @@ class DemoKey  extends TinyReact.Component {
     this.handleClick = this.handleClick.bind(this)
   }
   handleClick() {
-    console.log('click')
     const newState = JSON.parse(JSON.stringify(this.state))
-    newState.persons.push(newState.persons.shift())
+    // newState.persons.push(newState.persons.shift())
     // newState.persons.splice(1, 0, { id: 0, name: "李逵"})
-    console.log('click',)
+    newState.persons.pop()
     this.setState(newState)
   }
 
@@ -174,11 +176,12 @@ class DemoKey  extends TinyReact.Component {
           <ul>
             {
               this.state.persons.map(person => {
-                return <li>{person.id}{person.name}</li>
+                return <li key={person.id}>{person.id}{person.name}<DemoRef/></li>
               })
             }
           </ul>
           <button onClick={this.handleClick}>操作节点</button>
+          
       </div>
     )
   }

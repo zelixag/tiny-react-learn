@@ -46,7 +46,6 @@ export default function diff (virtualDOM, container, oldDOM) {
     }
 
     let hasNoKey = Object.keys(keyedElements).length === 0
-
     if(hasNoKey) {
       // 循环递归子节点，继续调用diff方法，比对子元素进行更新
       virtualDOM.children.forEach((child, i) => {
@@ -56,7 +55,7 @@ export default function diff (virtualDOM, container, oldDOM) {
       // 2. 循环 VirtualDOM 的子元素 获取子元素的 key属性
 
       virtualDOM.children.forEach((child, i) => {
-        let key = child.props.key
+        let key = child.props.key + ''
         if(key) {
           let domElement = keyedElements[key]
           if(domElement) {
@@ -86,6 +85,22 @@ export default function diff (virtualDOM, container, oldDOM) {
           i--
         ) {
           unmountNode(oldChildNodes[i])
+        }
+      } else {
+        // 通过key属性删除节点
+        for(let i = 0; i < oldChildNodes.length; i++) {
+          let oldChild = oldChildNodes[i];
+          let oldChildKey = oldChild._virtualDOM.props.key;
+          let found = false
+          for (let n = 0; n<virtualDOM.children.length;n++) {
+            if(oldChildKey === virtualDOM.children[n].props.key) {
+              found = true;
+              break;
+            }
+          }
+          if(!found) {
+            unmountNode(oldChild)
+          }
         }
       }
     }
