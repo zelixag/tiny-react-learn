@@ -18,5 +18,10 @@ export default function createDOMElement(virtualDOM) {
   virtualDOM.children.forEach((child) => {
     mountElement(child, newElement);
   });
+
+  // 调用ref，传递DOM对象
+  if(virtualDOM.props && virtualDOM.props.ref) {
+    virtualDOM.props.ref(newElement)
+  }
   return newElement;
 }

@@ -2,7 +2,6 @@ export default function updateNodeElement(newElement, virtualDOM, oldVirtualDOM 
   // 获取节点对应的属性对象
   const newProps = virtualDOM.props || {}
   const oldProps = oldVirtualDOM.props || {}
-
   Object.keys(newProps).forEach(propName => {
     // 获取属性值
     const newPropsValue = newProps[propName]
@@ -10,9 +9,7 @@ export default function updateNodeElement(newElement, virtualDOM, oldVirtualDOM 
     if (newPropsValue !== oldPropsValue) {
       if (propName.slice(0, 2) === "on") {
         // 判断属性是否是事件属性 onClick => click
-
         const eventName = propName.toLowerCase().slice(2);
-
         // 为元素添加事件
         newElement.addEventListener(eventName, newPropsValue);
 
